@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Post;
+use App\Models\Like;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,17 +20,8 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-
-            // $table->bigIncrements('id');
-            // $table->unsignedBigInteger('user_id');
-            // $table->longText('caption');
-            // $table->string('image');
-            // $table->bigInteger('likes')->default(0);
-            // $table->timestamps();
-
-            // $table->index('user_id');
+            //All other attributes of a Post instance can be inferred using the nested seeding and Magic Methods.
             'caption' => $this->faker->sentence(rand(8, 20)),
-            'user_id' => User::all()->random()->id,
         ];
     }
 }

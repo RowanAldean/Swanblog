@@ -17,6 +17,7 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        //Using regular php variables to generate email addresses. 
         $firstName = $this->faker->firstName();
         $secondName = $this->faker->lastName();
         return [
