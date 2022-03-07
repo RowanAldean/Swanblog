@@ -2,23 +2,19 @@
 
 namespace App\Models;
 
-use App\Contracts\Likeable;
-use App\Models\Concerns\Likes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model implements Likeable
+class Like extends Model
 {
-    use Likes;
     use HasFactory;
-
-    public function post()
-    {
-        return $this->belongsTo(Post::class);
-    }
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function likeable()
+    {
+        return $this->morphTo();
     }
 }
