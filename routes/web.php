@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +13,6 @@ use Inertia\Inertia;
 |
 */
 
-Route::redirect('/', 'login', 301);
-
-Route::get('/feed', function () {
-    return Inertia::render('Feed');
-})->middleware(['auth', 'verified'])->name('feed');
-
-require __DIR__ . '/auth.php';
+Route::get('/', function () {
+    return view('welcome');
+});
