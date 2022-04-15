@@ -138,6 +138,8 @@ return [
 
     'providers' => [
 
+        // Intervention Image for dealing with photos
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
          */
@@ -191,7 +193,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // ...
+        'Image' => 'Intervention\Image\Facades\Image',
     ])->toArray(),
 
 ];

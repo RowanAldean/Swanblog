@@ -1,9 +1,34 @@
+a:hover {
+    color: rgb(55 65 81) !important;
+}
+
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+/* Bootstrap */
+@import 'bootstrap';
 
-@layer components{
-    .logo{
+/* Font awesome */
+@import '~@fortawesome/fontawesome-free/css/fontawesome';
+@import '~@fortawesome/fontawesome-free/css/solid';
+
+@layer components {
+    .logo {
         width: 14rem;
+    }
+
+    .fa-house {
+        color: blue;
+    }
+
+    .card {
+        background-color: theme('colors.white');
+        border-radius: theme('borderRadius.lg');
+        padding: theme('spacing.6');
+        box-shadow: theme('boxShadow.xl');
+    }
+
+    .photo img {
+        max-height: 767px;
     }
 }

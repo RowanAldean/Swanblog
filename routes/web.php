@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,8 +20,11 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::controller(PostsController::class)->middleware(['auth'])->group(function () {
+    Route::get('/feed', 'index')->name('feed');
+    Route::get('/p/create', 'create')->name('post.create');
+    Route::post('/p', 'store')->name('post.store');
+    Route::delete('/p/{post}', 'destroy')->name('post.destroy');
+});
 
 require __DIR__ . '/auth.php';

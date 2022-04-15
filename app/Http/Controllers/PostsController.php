@@ -7,8 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Intervention\Image\Facades\Image;
-use Inertia\Inertia;
+use Image;
 
 class PostsController extends Controller
 {
@@ -24,10 +23,12 @@ class PostsController extends Controller
         $users_id = auth()->user()->following()->pluck('profiles.user_id');
 
         // Get Users Id form $following array
-        $sugg_users = User::all()->reject(function ($user) {
-            $users_id = auth()->user()->following()->pluck('profiles.user_id')->toArray();
-            return $user->id == Auth::id() || in_array($user->id, $users_id);
-        });
+        $sugg_users = User::all();
+
+        // reject(function ($user) {
+        //     $users_id = auth()->user()->following()->pluck('profiles.user_id')->toArray();
+        //     return $user->id == Auth::id() || in_array($user->id, $users_id);
+        // })
 
         // Add Auth user id to users id array
         $users_id = $users_id->push(auth()->user()->id);
@@ -37,7 +38,8 @@ class PostsController extends Controller
 
         // dd($posts);
 
-        return view('posts.index', compact('posts', 'sugg_users'));
+        // Compact is a PHP function that creates an array from variables and their values.
+        return view('feed', compact('posts', 'sugg_users'));
     }
 
     public function explore()
@@ -49,7 +51,7 @@ class PostsController extends Controller
 
     public function create()
     {
-        return Inertia::render('Posts/CreatePost');
+        return view('posts.create');
     }
 
     public function store()
@@ -57,22 +59,26 @@ class PostsController extends Controller
 
         $data = request()->validate([
             'caption' => ['required', 'string'],
-            'image' => ['required', 'image']
+            'image' => ['image']
         ]);
 
-        $imagePath = request('image')->store('/uploads', 'public');
-
-        $image = Image::make(public_path("storage/{$imagePath}"))->widen(600, function ($constraint) {
-            $constraint->upsize();
-        });
-        $image->save();
+        $imagePath = null;
+        // If an image exists
+        if (request('image') != null) {
+            $imagePath = request('image')->store('/uploads', 'public');
+            $image = Image::make(public_path("storage/{$imagePath}"))->widen(600, function ($constraint) {
+                $constraint->upsize();
+            });
+            $image->save();
+        }
 
         auth()->user()->posts()->create([
             'caption' => $data['caption'],
             'image' => $imagePath
         ]);
 
-        return redirect('/profile/' . auth()->user()->username);
+        return redirect('/feed');
+        // return redirect('/profile/' . auth()->user()->username);
         // return redirect()->route('profile.index', ['user' => auth()->user()]);
 
     }
