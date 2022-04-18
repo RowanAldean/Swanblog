@@ -17,7 +17,9 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->longText('caption');
-            $table->string('image')->nullable()->default(NULL);
+            $table->string('image')->nullable();
+            // Can do likes this way but then comments would need the same logic repeated. Interface method better.
+            // $table->bigInteger('likes')->default(0);
             $table->timestamps();
 
             $table->index('user_id');

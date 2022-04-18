@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model implements Likeable
 {
-    protected $fillable = ['caption'];
+    protected $fillable = ['caption', 'image'];
 
     use Likes;
     use HasFactory;

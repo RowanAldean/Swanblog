@@ -1,3 +1,7 @@
+#like-button .like-pressed i {
+    color: red !important;
+}
+
 a:hover {
     color: rgb(55 65 81) !important;
 }
@@ -5,8 +9,6 @@ a:hover {
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-/* Bootstrap */
-@import 'bootstrap';
 
 /* Font awesome */
 @import '~@fortawesome/fontawesome-free/css/fontawesome';
@@ -22,7 +24,6 @@ a:hover {
     }
 
     .card {
-        background-color: theme('colors.white');
         border-radius: theme('borderRadius.lg');
         padding: theme('spacing.6');
         box-shadow: theme('boxShadow.xl');
@@ -30,5 +31,12 @@ a:hover {
 
     .photo img {
         max-height: 767px;
+    }
+
+    .profile-pill {
+        border-radius: 5em;
+        padding: 0.4rem 0.25rem 0.4rem 0;
+        background-color: rgb(67 56 202);
+        color: white;
     }
 }

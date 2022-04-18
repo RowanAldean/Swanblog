@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Image;
+use Intervention\Image\Facades\Image;
 
 class PostsController extends Controller
 {
@@ -34,8 +34,8 @@ class PostsController extends Controller
         $users_id = $users_id->push(auth()->user()->id);
 
         // $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(5);
-        $posts = Post::whereIn('user_id', $users_id)->with('user')->latest()->paginate(10)->getCollection();
-
+        // $posts = Post::whereIn('user_id', $users_id)->with('user')->latest()->paginate(10)->getCollection();
+        $posts = Post::all();
         // dd($posts);
 
         // Compact is a PHP function that creates an array from variables and their values.
@@ -59,13 +59,14 @@ class PostsController extends Controller
 
         $data = request()->validate([
             'caption' => ['required', 'string'],
-            'image' => ['image']
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg']
         ]);
 
         $imagePath = null;
         // If an image exists
-        if (request('image') != null) {
+        if (request()->hasFile('image')) {
             $imagePath = request('image')->store('/uploads', 'public');
+
             $image = Image::make(public_path("storage/{$imagePath}"))->widen(600, function ($constraint) {
                 $constraint->upsize();
             });

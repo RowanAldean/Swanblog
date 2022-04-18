@@ -9,6 +9,11 @@ class Profile extends Model
 {
     use HasFactory;
 
+    public function getProfileImage()
+    {
+        return ($this->image) ? "/storage/$this->image" : "img/default.png";
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

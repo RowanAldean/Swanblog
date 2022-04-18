@@ -4,7 +4,7 @@
             <div class="py-4">
                 <!-- Validation Errors -->
                 {{-- <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
-                <form method="POST" action="{{ route('post.store') }}">
+                <form method="POST" enctype="multipart/form-data" action="{{ route('post.store') }}">
                     @csrf
 
                     <!-- Post Caption -->
@@ -19,7 +19,8 @@
                     <div class="mt-4">
                         <x-label for="image" :value="__('Image (Optional)')" />
 
-                        <x-fileupload accept="image/png, image/gif, image/jpeg" class="mt-1">
+                        <x-fileupload for="image" name="image" id="image" accept="image/png, image/gif, image/jpeg"
+                            class="mt-1">
                             {{ __('Upload Image') }}</x-fileupload>
                     </div>
 
