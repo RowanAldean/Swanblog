@@ -24,8 +24,8 @@ class CommentController extends Controller
     public function index()
     {
         $comments = Comment::all();
-        $ids = User::where('id', $comments->user_id);
-        return compact($comments, $ids);
+        // $ids = User::where('id', $comments->user_id);
+        return $comments;
     }
 
     /**
@@ -120,7 +120,6 @@ class CommentController extends Controller
         $this->authorize('delete', $comment);
 
         $comment->delete();
-        dd("reaching");
         return redirect()->back();
     }
 }

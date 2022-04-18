@@ -20,7 +20,7 @@
 </form>
 @if ($post->comments()->count() > 0)
     <hr class="mt-4 mb-2" style="height: 2px; border-radius: 5rem; color: rgba(0,0,0,0.3);">
-    @foreach ($post->comments as $comment)
+    @foreach ($post->comments->sortBy('created_at', 0, true) as $comment)
         <x-comment :comment="$comment" :user="$comment->user()"></x-comment>
     @endforeach
 @endif
