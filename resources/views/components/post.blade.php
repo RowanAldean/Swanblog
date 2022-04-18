@@ -19,9 +19,7 @@
                         </p>
                     </div>
                 </button>
-                <div class="row mb-1">
-                    <hr style="height: 2px; border-radius: 5rem; color: rgba(0,0,0,0.3); max-width: 10%;">
-                </div>
+
             </div>
             <div class="col-1">
                 @include('like', ['model' => $post])
@@ -40,25 +38,26 @@
         {{-- The caption --}}
         <div class="caption flex justify-between">
             <p class="card-text">{{ $post->caption }}</p>
+        </div>
+    </div>
+    {{-- The timestamp --}}
+    <div class="post-footer container">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-auto">
+                <div class="text-muted">{{ $post->created_at->diffForHumans() }}</div>
+            </div>
             @can('delete', $post)
-                <form action="{{ route('post.destroy', $post->id) }}" method="POST">
+                <form class="d-inline col-auto" action="{{ route('post.destroy', $post->id) }}" method="POST">
                     @csrf
                     @method("DELETE")
-                    <button class="btn" type="submit"><i class="fa-solid fa-trash-can"
+                    <button type="submit" class="text-red-500">delete post <i class="fa-solid fa-trash-can"
                             style="color: red"></i></button>
 
                 </form>
             @endcan
         </div>
     </div>
-    {{-- The timestamp --}}
-    <div class="post-footer container">
-        <div class="row justify-content-start align-items-center">
-            <div class="col-auto">
-                <div class="text-muted">{{ $post->created_at->diffForHumans() }}</div>
-            </div>
-        </div>
-    </div>
+    <hr class="my-2" style="height: 2px; border-radius: 5rem; color: rgba(0,0,0,0.3);">
 
     {{-- Comment section --}}
     <div class="post-comments container">
@@ -80,7 +79,7 @@
             </div>
         </div>
         <div class="new-comment-section row  align-items-center mt-4">
-            <div class="col-auto">
+            <div class="col">
                 @include('posts.newcomment', ['post' => $post])
             </div>
         </div>

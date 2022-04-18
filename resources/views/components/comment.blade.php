@@ -1,6 +1,6 @@
 @props(['comment', 'user'])
 
-<div class="teaser-comment comment-card mb-2">
+<div class="comment-card mb-2">
     <span>{{ $comment->body }}
         <span class="fw-bold text-muted">-
             {{ $comment->created_at->diffForHumans() }}
