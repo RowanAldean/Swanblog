@@ -4,7 +4,7 @@
     <div class="container-fluid">
 
         <!-- Navbar brand -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{ route('feed') }}">
             <x-application-logo class="block fill-current text-gray-600" style="height: 4rem" />
         </a>
 

@@ -50,13 +50,34 @@
                 @endcan
             </div>
         </div>
-        {{-- The timestamp & number of likes --}}
+        {{-- The timestamp --}}
         <div class="post-footer container">
             <div class="row justify-content-start align-items-center">
                 <div class="col-auto">
                     <div class="text-muted">{{ $post->created_at->diffForHumans() }}</div>
                 </div>
-                @include('like', ['model' => $post])
+            </div>
+        </div>
+        {{-- Comment section --}}
+        <div class="post-comments container">
+            <div class="row justify-content-start align-items-center">
+                <div class="col-auto">
+                    <div class="text-muted fw-bold">Comments:</div>
+                    <div class="teaser-comment comment-card">
+                        <span>{{ $post->comments()->latest()->first()->body }}
+                            <span class="fw-bold text-muted">-
+                                {{ $post->comments()->latest()->first()->created_at->diffForHumans() }}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="new-comment-section row  align-items-center mt-4">
+                <div class="col-10">
+                    @include('posts.comment', ['post' => $post])
+                </div>
+                <div class="col-1">
+                    @include('like', ['model' => $post])
+                </div>
             </div>
         </div>
     </div>

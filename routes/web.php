@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', '/login');
+Route::redirect('/', '/login')->name('home');
+
 
 Route::controller(PostsController::class)->middleware(['auth'])->group(function () {
     Route::get('/feed', 'index')->name('feed');

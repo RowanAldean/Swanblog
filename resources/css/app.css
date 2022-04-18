@@ -34,9 +34,39 @@ a:hover {
     }
 
     .profile-pill {
-        border-radius: 5em;
+        border-radius: theme('borderRadius.lg');
         padding: 0.4rem 0.25rem 0.4rem 0;
-        background-color: rgb(67 56 202);
+        background-color: rgba(67, 56, 202);
         color: white;
     }
+
+    .profile-pill:hover, .profile-pill:focus {
+        background-color: rgba(67, 56, 202, 0.7);
+    }
+
+    .comment-card {
+        background-color: rgba(0, 0, 0, 0.03);
+        padding: 0.5rem 1rem;
+        border-radius: theme('borderRadius.lg');
+    }
+
+    .new-comment-reveal:hover p, .new-comment-reveal:hover i {
+        color: rgba(67 56 202, 0.5);
+        transition: .2s;
+    }
+
+    .comment-text-area {
+        border: 2px solid;
+        border-color: rgba(67, 56, 202, 0.5);
+        background-color: rgba(0, 0, 0, 0.03);
+        padding: 0.5rem 1rem;
+        border-radius: theme('borderRadius.lg');
+        min-width: 100%;
+        min-height: 0;
+    }
+
+    .comment-text-area:focus, .comment-text-area:hover {
+        border-color: rgba(67, 56, 202);
+    }
+
 }

@@ -42,6 +42,7 @@ class UsersDataSeeder extends Seeder
                 Post::factory()
                     ->hasComments(3)
                     ->count(5)
+                    ->hasLikes(5)
             )
             ->count(10)
             ->create();
