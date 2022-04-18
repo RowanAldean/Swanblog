@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +23,9 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comments = Comment::all();
+        $ids = User::where('id', $comments->user_id);
+        return compact($comments, $ids);
     }
 
     /**
@@ -26,7 +35,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        //we never create comments, we only store them and delete them.
     }
 
     /**
@@ -41,24 +50,26 @@ class CommentController extends Controller
 
         Comment::create([
             'body' => $request->body,
-            'user_id' => Auth::id(),
+            'user_id' => Auth::user()->id,
             'post_id' => $post->id
         ]);
 
+        //Go to the post page
         if ($request->redirect) {
             return redirect()->route('post.show', compact('post'));
         }
 
+        // Go back to feed
         return redirect()->route('feed');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Comment  $comment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show($id)
     {
         //
     }
@@ -66,10 +77,10 @@ class CommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Comment  $comment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
+    public function edit($id)
     {
         //
     }
@@ -78,22 +89,38 @@ class CommentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Comment  $comment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, $id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        if (Auth::user()->can('update', $comment)) {
+            $comment->body = $request->body;
+        }
+
+        //Go to the post page
+        if ($request->redirect) {
+            return redirect()->route('post.show', compact('post'));
+        }
+
+        // Go back to feed
+        return redirect()->route('feed');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Comment  $comment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy($id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        $this->authorize('delete', $comment);
+
+        $comment->delete();
+        dd("reaching");
+        return redirect()->back();
     }
 }

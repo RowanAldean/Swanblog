@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('profile_id');
             $table->unsignedBigInteger('user_id');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

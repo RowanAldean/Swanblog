@@ -19,8 +19,8 @@ a:hover {
         width: 14rem;
     }
 
-    .fa-house {
-        color: blue;
+    .nav-link:active i:active {
+        color: rgba(67, 56, 202, 0.7);
     }
 
     .card {
@@ -50,6 +50,10 @@ a:hover {
         border-radius: theme('borderRadius.lg');
     }
 
+    .comment-trash:hover {
+        color: red !important;
+    }
+
     .new-comment-reveal:hover p, .new-comment-reveal:hover i {
         color: rgba(67 56 202, 0.5);
         transition: .2s;
@@ -61,7 +65,7 @@ a:hover {
         background-color: rgba(0, 0, 0, 0.03);
         padding: 0.5rem 1rem;
         border-radius: theme('borderRadius.lg');
-        min-width: 100%;
+        min-width: 80%;
         min-height: 0;
     }
 

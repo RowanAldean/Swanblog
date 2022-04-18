@@ -18,7 +18,6 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/likes.js') }}"></script>
-
 </head>
 
 <body class="font-sans antialiased">
@@ -28,7 +27,13 @@
 
         <!-- Page Content -->
         <main>
-            {{ $slot }}
+            <div class="py-12">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div>
+                        {{ $slot }}
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 </body>

@@ -8,9 +8,11 @@ use Illuminate\Auth\Access\Response;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Like;
+use App\Models\Comment;
 use App\Contracts\Likeable;
 use App\Policies\LikePolicy;
 use App\Policies\PostPolicy;
+use App\Policies\CommentPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
         Post::class => PostPolicy::class,
+        Comment::class => CommentPolicy::class,
         Like::class => LikePolicy::class,
     ];
 

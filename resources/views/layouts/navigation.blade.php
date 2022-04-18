@@ -21,7 +21,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex nav-item">
                     <x-nav-link class="nav-link" :href="route('feed')" :active="request()->routeIs('feed')">
-                        <i class="fa-solid fa-house text-gray-900"></i>
+                        <i class="fa-solid fa-house active:text-indigo-700"></i>
                     </x-nav-link>
                     <!-- :href="route('posts.explore')" :active="request()->routeIs('posts.explore')" -->
                     <x-nav-link class="nav-link">

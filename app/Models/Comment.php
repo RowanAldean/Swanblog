@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model implements Likeable
 {
+    protected $fillable = ['body', 'user_id', 'post_id'];
+
     use Likes;
     use HasFactory;
 

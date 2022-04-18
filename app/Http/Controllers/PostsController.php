@@ -59,7 +59,7 @@ class PostsController extends Controller
 
         $data = request()->validate([
             'caption' => ['required', 'string'],
-            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg']
+            'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg']
         ]);
 
         $imagePath = null;
@@ -97,28 +97,6 @@ class PostsController extends Controller
     {
         $posts = $post->user->posts->except($post->id);
         return view('posts.show', compact('post', 'posts'));
-    }
-
-    public function updatelikes(Request $request, $post)
-    {
-        // TODO Later
-        $post = Post::where('id', $post)->first();
-        if (!$post) {
-            App::abort(404);
-        }
-
-        if ($request->update == "1") {
-            // add 1 like
-            $post->likes = $post->likes + 1;
-            $post->save();
-        } else if ($request->update == "0" && $post->likes != 0) {
-            // take 1 like
-            $post->likes = $post->likes - 1;
-            $post->save();
-        }
-
-
-        return Redirect::to('/');
     }
 
     // methods for vue api requests

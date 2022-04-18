@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
+    protected $fillable = ['user_id', 'bio', 'website', 'image'];
+
     use HasFactory;
 
     public function getProfileImage()
