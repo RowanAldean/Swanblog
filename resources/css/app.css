@@ -54,8 +54,16 @@ a:hover {
         color: red !important;
     }
 
+    .comment-edit:hover {
+        color: blue !important;
+    }
+
+    .comment-send:hover {
+        color: rgba(67, 56, 202) !important;
+    }
+
     .new-comment-reveal:hover p, .new-comment-reveal:hover i {
-        color: rgba(67 56 202, 0.5);
+        color: rgba(67, 56, 202, 0.5);
         transition: .2s;
     }
 

@@ -73,7 +73,7 @@
                         ->comments()
                         ->latest()
                         ->first()
-                        ->user()">
+                        ->user()" :changes=false>
                     </x-comment>
                 @endif
             </div>

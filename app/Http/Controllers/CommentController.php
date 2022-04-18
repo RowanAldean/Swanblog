@@ -97,8 +97,10 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($id);
         if (Auth::user()->can('update', $comment)) {
             $comment->body = $request->body;
+            $comment->edited = true;
+            $comment->save();
         }
-
+        // dd("missed the change");
         //Go to the post page
         if ($request->redirect) {
             return redirect()->route('post.show', compact('post'));
