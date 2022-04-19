@@ -13,6 +13,11 @@ class Profile extends Model
 
     public function getProfileImage()
     {
+        // If image is hosted elsewhere then just return the URL.
+        if (str_starts_with($this->image, 'http')) {
+            return $this->image;
+        }
+        // If an image exists then return it, else give the default.
         return ($this->image) ? "/storage/$this->image" : "img/defaultuser.png";
     }
 

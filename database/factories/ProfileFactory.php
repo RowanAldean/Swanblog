@@ -20,6 +20,7 @@ class ProfileFactory extends Factory
             // We use this factory to produce a profile when each user is created in the UsersTableSeeder via "magic methods".
             'bio' => $this->faker->realText($maxNbChars = 100),
             'website' => $this->faker->url(),
+            'image' => "https://i.pravatar.cc/300?u=" . $this->faker->userName(),
         ];
     }
 }

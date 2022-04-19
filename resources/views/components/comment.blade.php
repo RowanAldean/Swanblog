@@ -1,6 +1,6 @@
 @props(['comment', 'user', 'changes'])
 
-<div class="comment-card mb-2">
+<div {!! $attributes->merge(['class' => 'comment-card mb-2']) !!}>
     <span>{{ $comment->body }}
         <span class="fw-bold text-muted">-
             {{ $comment->created_at->diffForHumans() }}
@@ -24,7 +24,7 @@
                     </form>
                 @endcan
                 @can('update', $comment)
-                    <button onclick="revealEditComment({{ $comment->id }})" class="ml-3 float-right"><i
+                    <button onclick="revealCommentSectionElem({{ $comment->id }}, false)" class="ml-3 float-right"><i
                             class="fa-solid fa-pencil comment-edit"></i></button>
                 @endcan
             @endif

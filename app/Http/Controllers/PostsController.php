@@ -35,7 +35,7 @@ class PostsController extends Controller
 
         // $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(5);
         // $posts = Post::whereIn('user_id', $users_id)->with('user')->latest()->paginate(10)->getCollection();
-        $posts = Post::paginate(10);
+        $posts = Post::orderBy('created_at', 'desc')->paginate(10);
         // dd($posts);
 
         // Compact is a PHP function that creates an array from variables and their values.

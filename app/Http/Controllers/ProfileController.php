@@ -16,8 +16,9 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(User $user)
+    public function index($username)
     {
+        $user = User::where('username', $username)->firstOrFail();
         // $follows = (auth()->user()) ? auth()->user()->following->contains($user->profile) : false;
         $postCount = Cache::remember(
             'count.posts.' . $user->id,
@@ -110,8 +111,8 @@ class ProfileController extends Controller
         //     'email' => ['required', 'email', 'max:255'],
         // ]);
 
-        if (request('image')) {
-            $imagePath = request('image')->store('/profile', 'public');
+        if (request('profile-image')) {
+            $imagePath = request('profile-image')->store('/profile', 'public');
             $image = Image::make(public_path("storage/{$imagePath}"))->fit(300, 300);
             $image->save();
             $imageArray = ['image' => $imagePath];

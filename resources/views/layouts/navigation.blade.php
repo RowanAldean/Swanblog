@@ -36,7 +36,7 @@
             <!-- Settings -->
             <ul class="navbar-nav d-flex flex-row me-1">
                 <li
-                    class="pr-4 nav-item text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                    class="flex align-items-center pr-4 nav-item text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                     <a className="pr-4 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
                         href="{{ route('post.create') }}"
                         active="{{ strpos(Route::currentRouteName(), 'post.create') == 0 ? true : false }}">
@@ -49,15 +49,20 @@
                         <x-slot name="trigger">
                             <button
                                 class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                                <div>{{ Auth::user()->name }}</div>
-
-                                <div class="ml-1">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                            clip-rule="evenodd" />
-                                    </svg>
+                                <div class="container">
+                                    <div class="row justify-content-start align-items-center">
+                                        <div class="flex align-items-center">
+                                            <img src="{{ asset(auth()->user()->profile->getProfileImage()) }}"
+                                                class="img-fluid rounded-circle w-8 mr-2">
+                                            {{ Auth::user()->name }}
+                                            <svg class="ml-1 fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd"
+                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </div>
                                 </div>
                             </button>
                         </x-slot>
@@ -72,7 +77,7 @@
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>
-                            <x-dropdown-link :href="route('profile.index', auth()->user()->profile)">
+                            <x-dropdown-link :href="route('profile.index', auth()->user()->username)">
                                 {{ __('View Profile') }}
                             </x-dropdown-link>
                         </x-slot>

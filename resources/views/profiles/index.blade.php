@@ -9,8 +9,12 @@
                             class="can-update row rounded-circle w-100">
                         <i class="row fa-solid fa-upload fa-xl"></i>
                     </button>
-                    <form action="{{ route('profile.update', auth()->user()) }}">
-                        <input id='file-picker' type='file' hidden onchange="form.submit()" />
+                    <form id="profile-pic-form" enctype="multipart/form-data"
+                        action="{{ route('profile.update', auth()->user()) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <x-fileupload form="profile-pic-form" name="profile-image" id='profile-image' hidden
+                            onchange="form.submit()" :value="old('profile-image')"></x-fileupload>
                     </form>
                 @endcan
                 @cannot('update', $user->profile)
@@ -65,7 +69,7 @@
 
     <script>
         function selectProfilePicture() {
-            document.getElementById('file-picker').click();
+            document.getElementById('profile-image').click();
         }
     </script>
 </x-app-layout>

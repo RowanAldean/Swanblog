@@ -20,8 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', '/login')->name('home');
 
 Route::controller(ProfileController::class)->middleware(['auth'])->group(function () {
-    Route::get('/profile/{user}', 'index')->name('profile.index');
-    Route::patch('/profile/{user}', 'update')->name('profile.update');
+    Route::get('/profile/{username}', 'index')->name('profile.index');
+    Route::patch('/profile/{username}', 'update')->name('profile.update');
     // TODO: Implement deleting of profile and account upon a "are you sure" modal
     // Route::delete('/p/{post}', 'destroy')->name('post.destroy');
 });
