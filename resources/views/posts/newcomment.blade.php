@@ -1,3 +1,4 @@
+<hr class="mb-4 mt-2" style="height: 2px; border-radius: 5rem; color: rgba(0,0,0,0.3);">
 <form id="new-comment-{{ $post->id }}" action={{ route('comments.store') }} method="POST">
     @csrf
     <input type="hidden" name="post_id" form="new-comment-{{ $post->id }}" value="{{ $post->id }}">
@@ -18,9 +19,3 @@
         x-model="formData.likeable_type"> --}}
     {{-- <input type="hidden" name="id" :value="{{ $model->id }}" class="d-none" x-model="formData.id"> --}}
 </form>
-@if ($post->comments()->count() > 0)
-    <hr class="mt-4 mb-2" style="height: 2px; border-radius: 5rem; color: rgba(0,0,0,0.3);">
-    @foreach ($post->comments->sortBy('created_at', 0, true) as $comment)
-        <x-comment :comment="$comment" :user="$comment->user()" :changes=true></x-comment>
-    @endforeach
-@endif

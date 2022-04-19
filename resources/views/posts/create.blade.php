@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="py-4">
                 <!-- Validation Errors -->
-                {{-- <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
+                <x-auth-validation-errors class="mb-4" :errors="$errors" />
                 <form method="POST" enctype="multipart/form-data" action="{{ route('post.store') }}">
                     @csrf
 
@@ -12,7 +12,7 @@
                         <x-label for="caption" :value="__('Post Caption')" />
 
                         <x-textarea id="caption" class="block mt-1 w-full" type="text" name="caption" :value="old('caption')"
-                            required autofocus placeholder="What's on your mind?" />
+                            autofocus placeholder="What's on your mind?" />
                     </div>
 
                     <!-- Image (Optional) -->

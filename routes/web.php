@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostsController;
@@ -18,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login')->name('home');
 
+Route::controller(ProfileController::class)->middleware(['auth'])->group(function () {
+    Route::get('/profile/{user}', 'index')->name('profile.index');
+    Route::patch('/profile/{user}', 'update')->name('profile.update');
+    // TODO: Implement deleting of profile and account upon a "are you sure" modal
+    // Route::delete('/p/{post}', 'destroy')->name('post.destroy');
+});
 
 Route::controller(PostsController::class)->middleware(['auth'])->group(function () {
     Route::get('/feed', 'index')->name('feed');

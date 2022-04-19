@@ -51,8 +51,6 @@ class RegisteredUserController extends Controller
 
         $profile = Profile::create([
             'user_id' => $user->id,
-            'bio' => "Hi my name is Rowan and this is an account I registered!",
-            'website' => "https://www.rowanregistered.com",
         ]);
 
         event(new Registered($user));

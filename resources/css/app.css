@@ -44,6 +44,30 @@ a:hover {
         background-color: rgba(67, 56, 202, 0.7);
     }
 
+    .profile-image-container {
+        position: relative;
+    }
+
+    .profile-image-container img {
+        display: block;
+    }
+
+    .profile-image-container:hover img.can-update {
+        filter: brightness(50%);
+    }
+
+    .profile-image-container .fa-upload {
+        position: absolute;
+        color: white;
+        display: none;
+        transition: .2s;
+    }
+
+    .profile-image-container:hover .fa-upload {
+        position: absolute;
+        display: block;
+    }
+
     .comment-card {
         background-color: rgba(0, 0, 0, 0.03);
         padding: 0.5rem 1rem;
@@ -81,4 +105,7 @@ a:hover {
         border-color: rgba(67, 56, 202);
     }
 
+    [role="navigation"] p {
+        margin-right: 1.2rem;
+    }
 }

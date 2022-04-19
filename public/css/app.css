@@ -6968,6 +6968,25 @@ select {
 .profile-pill:hover, .profile-pill:focus {
         background-color: rgba(67, 56, 202, 0.7);
     }
+.profile-image-container {
+        position: relative;
+    }
+.profile-image-container img {
+        display: block;
+    }
+.profile-image-container:hover img.can-update {
+        filter: brightness(50%);
+    }
+.profile-image-container .fa-upload {
+        position: absolute;
+        color: white;
+        display: none;
+        transition: .2s;
+    }
+.profile-image-container:hover .fa-upload {
+        position: absolute;
+        display: block;
+    }
 .comment-card {
         background-color: rgba(0, 0, 0, 0.03);
         padding: 0.5rem 1rem;
@@ -6980,7 +6999,7 @@ select {
         color: blue !important;
     }
 .comment-send:hover {
-        color: rgba(67, 56, 202, 0.5) !important;
+        color: rgba(67, 56, 202) !important;
     }
 .comment-text-area {
         border: 2px solid;
@@ -6993,6 +7012,9 @@ select {
     }
 .comment-text-area:focus, .comment-text-area:hover {
         border-color: rgba(67, 56, 202);
+    }
+[role="navigation"] p {
+        margin-right: 1.2rem;
     }
 .fixed {
     position: fixed;
@@ -7024,6 +7046,14 @@ select {
 .float-right {
     float: right;
 }
+.my-2 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.my-3 {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+}
 .mx-auto {
     margin-left: auto;
     margin-right: auto;
@@ -7032,21 +7062,17 @@ select {
     margin-top: 0px;
     margin-bottom: 0px;
 }
-.my-2 {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-}
 .ml-3 {
     margin-left: 0.75rem;
 }
 .-ml-px {
     margin-left: -1px;
 }
-.mt-3 {
-    margin-top: 0.75rem;
-}
 .mb-2 {
     margin-bottom: 0.5rem;
+}
+.mt-3 {
+    margin-top: 0.75rem;
 }
 .ml-1 {
     margin-left: 0.25rem;
@@ -7216,6 +7242,11 @@ select {
     margin-right: calc(2rem * var(--tw-space-x-reverse));
     margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
 }
+.space-x-2 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+    margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
 .overflow-hidden {
     overflow: hidden;
 }
@@ -7307,6 +7338,10 @@ select {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
+.px-5 {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
 .py-12 {
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -7355,6 +7390,10 @@ select {
     font-size: 0.875rem;
     line-height: 1.25rem;
 }
+.text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
 .text-base {
     font-size: 1rem;
     line-height: 1.5rem;
@@ -7396,6 +7435,14 @@ select {
     --tw-text-opacity: 1;
     color: rgb(55 65 81 / var(--tw-text-opacity));
 }
+.text-black {
+    --tw-text-opacity: 1;
+    color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+.text-indigo-700 {
+    --tw-text-opacity: 1;
+    color: rgb(67 56 202 / var(--tw-text-opacity));
+}
 .text-red-600 {
     --tw-text-opacity: 1;
     color: rgb(220 38 38 / var(--tw-text-opacity));
@@ -7407,10 +7454,6 @@ select {
 .text-gray-600 {
     --tw-text-opacity: 1;
     color: rgb(75 85 99 / var(--tw-text-opacity));
-}
-.text-indigo-700 {
-    --tw-text-opacity: 1;
-    color: rgb(67 56 202 / var(--tw-text-opacity));
 }
 .text-gray-900 {
     --tw-text-opacity: 1;

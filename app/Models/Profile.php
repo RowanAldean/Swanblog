@@ -13,7 +13,7 @@ class Profile extends Model
 
     public function getProfileImage()
     {
-        return ($this->image) ? "/storage/$this->image" : "img/default.png";
+        return ($this->image) ? "/storage/$this->image" : "img/defaultuser.png";
     }
 
     public function user()
