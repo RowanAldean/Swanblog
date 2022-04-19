@@ -19,8 +19,8 @@
                     <div class="mt-4">
                         <x-label for="image" :value="__('Image (Optional)')" />
 
-                        <x-fileupload for="image" name="image" id="image" accept="image/png, image/gif, image/jpeg"
-                            class="mt-1">
+                        <x-fileupload name="image" id="image" accept="image/png, image/gif, image/jpeg"
+                            class="mt-1" :value="old('image')">
                             {{ __('Upload Image') }}</x-fileupload>
                     </div>
 

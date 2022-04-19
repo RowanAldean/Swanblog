@@ -30,10 +30,9 @@
     {{-- Main Content --}}
     <div class="container mb-2">
         {{-- Add an image if it exists --}}
-        @if ($post->image)
-            <div class="photo">
-                has an image
-                <img class="card-img" src="{{ asset("uploads/{$post->image}") }}">
+        @if ($post->image != null)
+            <div class="photo row justify-content-center">
+                <img class="card-img w-50 h-50" src="{{ asset("storage/$post->image") }}">
             </div>
         @endif
         {{-- The caption --}}
@@ -58,7 +57,7 @@
             @endcan
         </div>
     </div>
-    <hr class="my-2" style="height: 2px; border-radius: 5rem; color: rgba(0,0,0,0.3);">
+    {{-- <hr class="my-2" style="height: 2px; border-radius: 5rem; color: rgba(0,0,0,0.3);"> --}}
 
     {{-- Comment section --}}
     <div class="post-comments container">

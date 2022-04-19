@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Cache;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
+
 
 class ProfileController extends Controller
 {

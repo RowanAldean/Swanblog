@@ -66,7 +66,6 @@ class PostsController extends Controller
         // If an image exists
         if (request()->hasFile('image')) {
             $imagePath = request('image')->store('/uploads', 'public');
-
             $image = Image::make(public_path("storage/{$imagePath}"))->widen(600, function ($constraint) {
                 $constraint->upsize();
             });
