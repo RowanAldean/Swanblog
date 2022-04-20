@@ -126,7 +126,6 @@ class ProfileController extends Controller
 
         // Can't update the user itself.
         // auth()->user()->update($dataUser);
-
         return redirect('/profile/' . auth()->user()->username);
     }
 
