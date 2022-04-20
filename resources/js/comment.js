@@ -1,6 +1,9 @@
 const axios = require('axios').default;
 
-window.newComment = function (postid, body) {
+window.newComment = function (postid) {
+    // Get the relevant body
+    body = document.body.querySelector('#body-' + postid).value;
+    console.log(body);
     // Params are (URL, body, options)
     axios.post(
         '/comments',
@@ -18,21 +21,16 @@ window.newComment = function (postid, body) {
         .then(function (response) {
             console.log(response);
             // Get our old comments
-            var currentComments = document.body.querySelector('#comment-section-' + postid);
+            var currentComments = document.body.querySelector('.post-comments-' + postid);
             // Now we need to make it html to query select it
             var text = response.data;
             const parser = new DOMParser();
             const htmlDocument = parser.parseFromString(text, "text/html");
-            // Get our new comments
-            const newComments = htmlDocument.documentElement.querySelector('#comment-section-' + postid);
+            // Get our new comment
+            htmlDocument.documentElement.querySelector('#see-more-' + postid).style.display = 'block';
+            newComments = htmlDocument.documentElement.querySelector('.post-comments-' + postid);
             // Replace the divs
             currentComments.replaceWith(newComments);
-            // Now let's update the recent comment
-            var oldRecent = document.body.querySelector('#recent-comment-' + postid);
-            recent = htmlDocument.documentElement.querySelector('#comment-section-' + postid + ' .comment-card');
-            recent.id = '#recent-comment-' + postid;
-            oldRecent.replaceWith(recent);
-            console.log(recent);
         })
         .catch(function (error) {
             console.log(error);

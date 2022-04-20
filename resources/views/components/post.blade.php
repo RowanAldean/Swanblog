@@ -63,34 +63,33 @@
     {{-- <hr class="my-2" style="height: 2px; border-radius: 5rem; color: rgba(0,0,0,0.3);"> --}}
 
     {{-- Comment section --}}
-    <div class="post-comments container">
+    <div class="post-comments-{{ $post->id }} container">
         <div class="row justify-content-start align-items-center">
             <div class="col-auto">
-                @if ($post->comments()->count() > 0)
-                    <div class="text-muted fw-bold">Newest comment:</div>
-                    <span class="flex align-items-center">
-                        {{-- Teaser comment --}}
-                        <x-comment id="recent-comment-{{ $post->id }}" :comment="$post
-                            ->comments()
-                            ->latest()
-                            ->first()" :user="$post
-                            ->comments()
-                            ->latest()
-                            ->first()
-                            ->user()"
-                            :changes=false>
-                        </x-comment>
-                        @if ($post->comments()->count() > 1)
-                            <button class="text-indigo-700 text-lg mb-2 ml-2"
-                                onclick="seeMore({{ $post->id }})">see
-                                more...</button>
-                    </span>
-                @else
-                    </span>
-                @endif
-            @else
-                <div class="text-muted fw-bold">Comments:</div>
-                @endif
+                <div class="text-muted fw-bold">Featured comment:
+                    @if ($post->comments()->count() > 0)
+                        <span class="flex align-items-center">
+                            {{-- Teaser comment --}}
+                            <x-comment id="recent-comment-{{ $post->id }}" :comment="$post
+                                ->comments()
+                                ->latest()
+                                ->first()" :user="$post
+                                ->comments()
+                                ->latest()
+                                ->first()
+                                ->user()"
+                                :changes=false>
+                            </x-comment>
+                            @if ($post->comments()->count() > 1)
+                                <button class="text-indigo-700 text-lg mb-2 ml-2"
+                                    onclick="seeMore({{ $post->id }})">see
+                                    more...</button>
+                        </span>
+                    @else
+                        </span>
+                    @endif
+                    @endif
+                </div>
                 <button class="text-muted" onclick="revealCommentSectionElem({{ $post->id }}, true)"><i>add
                         comment</i>
                 </button>

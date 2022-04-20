@@ -2385,8 +2385,11 @@ var __webpack_exports__ = {};
   \*********************************/
 var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["default"]);
 
-window.newComment = function (postid, body) {
-  // Params are (URL, body, options)
+window.newComment = function (postid) {
+  // Get the relevant body
+  body = document.body.querySelector('#body-' + postid).value;
+  console.log(body); // Params are (URL, body, options)
+
   axios.post('/comments', {
     'post_id': postid,
     'body': body
@@ -2399,21 +2402,16 @@ window.newComment = function (postid, body) {
   }).then(function (response) {
     console.log(response); // Get our old comments
 
-    var currentComments = document.body.querySelector('#comment-section-' + postid); // Now we need to make it html to query select it
+    var currentComments = document.body.querySelector('.post-comments-' + postid); // Now we need to make it html to query select it
 
     var text = response.data;
     var parser = new DOMParser();
-    var htmlDocument = parser.parseFromString(text, "text/html"); // Get our new comments
+    var htmlDocument = parser.parseFromString(text, "text/html"); // Get our new comment
 
-    var newComments = htmlDocument.documentElement.querySelector('#comment-section-' + postid); // Replace the divs
+    htmlDocument.documentElement.querySelector('#see-more-' + postid).style.display = 'block';
+    newComments = htmlDocument.documentElement.querySelector('.post-comments-' + postid); // Replace the divs
 
-    currentComments.replaceWith(newComments); // Now let's update the recent comment
-
-    var oldRecent = document.body.querySelector('#recent-comment-' + postid);
-    recent = htmlDocument.documentElement.querySelector('#comment-section-' + postid + ' .comment-card');
-    recent.id = '#recent-comment-' + postid;
-    oldRecent.replaceWith(recent);
-    console.log(recent);
+    currentComments.replaceWith(newComments);
   })["catch"](function (error) {
     console.log(error);
   });
