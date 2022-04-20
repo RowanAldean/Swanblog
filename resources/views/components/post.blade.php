@@ -80,14 +80,10 @@
                                 ->user()"
                                 :changes=false>
                             </x-comment>
-                            @if ($post->comments()->count() > 1)
-                                <button class="text-indigo-700 text-lg mb-2 ml-2"
-                                    onclick="seeMore({{ $post->id }})">see
-                                    more...</button>
+                            <button class="text-indigo-700 text-lg mb-2 ml-2"
+                                onclick="seeMore({{ $post->id }})">see
+                                all...</button>
                         </span>
-                    @else
-                        </span>
-                    @endif
                     @endif
                 </div>
                 <button class="text-muted" onclick="revealCommentSectionElem({{ $post->id }}, true)"><i>add
@@ -97,13 +93,13 @@
         </div>
         <div id="comment-section-{{ $post->id }}" class="comment-section row  align-items-center mt-2">
             <div class="col">
-                @if ($post->comments()->count() > 1)
-                    <div id="see-more-{{ $post->id }}" style="display: none;">
+                <div id="see-more-{{ $post->id }}" style="display: none;">
+                    @if ($post->comments()->count() > 0)
                         @foreach ($post->comments->sortBy('created_at', 0, true) as $comment)
                             <x-comment :comment="$comment" :user="$comment->user()" :changes=true></x-comment>
                         @endforeach
-                    </div>
-                @endif
+                    @endif
+                </div>
                 @include('posts.newcomment', ['post' => $post])
             </div>
         </div>

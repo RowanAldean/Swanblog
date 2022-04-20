@@ -107,7 +107,7 @@ class CommentController extends Controller
         }
 
         // Go back to feed
-        return redirect()->route('feed');
+        return true;
     }
 
     /**
@@ -122,6 +122,6 @@ class CommentController extends Controller
         $this->authorize('delete', $comment);
 
         $comment->delete();
-        return redirect()->back();
+        return true;
     }
 }

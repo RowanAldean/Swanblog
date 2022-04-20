@@ -2385,10 +2385,38 @@ var __webpack_exports__ = {};
   \*********************************/
 var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["default"]);
 
+function updateComments(postid) {
+  // Params are (URL, body, options)
+  axios.get('/feed', {
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'Content-Type': 'application/json',
+      'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content
+    }
+  }).then(function (response) {
+    // console.log(response);
+    // Get our old comments
+    var currentComments = document.body.querySelector('.post-comments-' + postid); // Now we need to make it html to query select it
+
+    var text = response.data;
+    var parser = new DOMParser();
+    var htmlDocument = parser.parseFromString(text, "text/html"); // Get our new comment
+
+    htmlDocument.documentElement.querySelector('#see-more-' + postid).style.display = 'block';
+    newComments = htmlDocument.documentElement.querySelector('.post-comments-' + postid); // Replace the divs
+
+    currentComments.replaceWith(newComments);
+  })["catch"](function (error) {
+    console.log(error);
+  });
+}
+
+;
+
 window.newComment = function (postid) {
   // Get the relevant body
-  body = document.body.querySelector('#body-' + postid).value;
-  console.log(body); // Params are (URL, body, options)
+  body = document.body.querySelector('#body-' + postid).value; // console.log(body);
+  // Params are (URL, body, options)
 
   axios.post('/comments', {
     'post_id': postid,
@@ -2400,8 +2428,8 @@ window.newComment = function (postid) {
       'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content
     }
   }).then(function (response) {
-    console.log(response); // Get our old comments
-
+    // console.log(response);
+    // Get our old comments
     var currentComments = document.body.querySelector('.post-comments-' + postid); // Now we need to make it html to query select it
 
     var text = response.data;
@@ -2412,6 +2440,44 @@ window.newComment = function (postid) {
     newComments = htmlDocument.documentElement.querySelector('.post-comments-' + postid); // Replace the divs
 
     currentComments.replaceWith(newComments);
+  })["catch"](function (error) {
+    console.log(error);
+  });
+};
+
+window.deleteComment = function (postid, commentid) {
+  // Get the relevant body
+  body = document.body.querySelector('#body-' + postid).value; // console.log(body);
+  // Params are (URL, body, options)
+
+  axios["delete"]('/comments/' + commentid, {
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'Content-Type': 'application/json',
+      'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content
+    }
+  }).then(function (response) {
+    updateComments(postid);
+  })["catch"](function (error) {
+    console.log(error);
+  });
+};
+
+window.editComment = function (postid, commentid) {
+  // Get the relevant body
+  body = document.body.querySelector('#edit-body-' + commentid).value; // console.log(body);
+  // Params are (URL, body, options)
+
+  axios.patch('/comments/' + commentid, {
+    'body': body
+  }, {
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'Content-Type': 'application/json',
+      'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content
+    }
+  }).then(function (response) {
+    updateComments(postid);
   })["catch"](function (error) {
     console.log(error);
   });

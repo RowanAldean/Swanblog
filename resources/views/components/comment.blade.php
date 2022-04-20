@@ -19,7 +19,8 @@
                         action="{{ route('comments.destroy', $comment->id) }}" method="POST" style="float: right;">
                         @method('DELETE')
                         @csrf
-                        <button form="delete-comment-form-{{ $comment->id }}" type="submit"><i
+                        <button type="button"
+                            onclick="deleteComment({{ $comment->post()->first()->id }}, {{ $comment->id }})"><i
                                 class="fa-solid fa-trash-can comment-trash"></i></button>
                     </form>
                 @endcan
@@ -39,10 +40,10 @@
                 @method('PATCH')
                 @csrf
                 <span class="d-flex flex-row justify-content-center text-muted">
-                    <input form="edit-comment-form-{{ $comment->id }}" name="body"
-                        class="comment-text-area bg-white mr-2" placeholder="Edit your comment...">
-                    <button form="edit-comment-form-{{ $comment->id }}" type="submit"><i
-                            class="fa-solid fa-comment-dots comment-send"></i></button>
+                    <input id="edit-body-{{ $comment->id }}" name="body" class="comment-text-area bg-white mr-2"
+                        placeholder="Edit your comment...">
+                    <button onclick="editComment({{ $comment->post()->first()->id }},{{ $comment->id }})"
+                        type="button"><i class="fa-solid fa-comment-dots comment-send"></i></button>
                 </span>
             </form>
         </div>

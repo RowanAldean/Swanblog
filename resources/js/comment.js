@@ -1,9 +1,38 @@
 const axios = require('axios').default;
 
+function updateComments(postid) {
+    // Params are (URL, body, options)
+    axios.get(
+        '/feed',
+        {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content
+            }
+        })
+        .then(function (response) {
+            // console.log(response);
+            // Get our old comments
+            var currentComments = document.body.querySelector('.post-comments-' + postid);
+            // Now we need to make it html to query select it
+            var text = response.data;
+            const parser = new DOMParser();
+            const htmlDocument = parser.parseFromString(text, "text/html");
+            // Get our new comment
+            htmlDocument.documentElement.querySelector('#see-more-' + postid).style.display = 'block';
+            newComments = htmlDocument.documentElement.querySelector('.post-comments-' + postid);
+            // Replace the divs
+            currentComments.replaceWith(newComments);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+};
 window.newComment = function (postid) {
     // Get the relevant body
     body = document.body.querySelector('#body-' + postid).value;
-    console.log(body);
+    // console.log(body);
     // Params are (URL, body, options)
     axios.post(
         '/comments',
@@ -19,7 +48,7 @@ window.newComment = function (postid) {
             }
         })
         .then(function (response) {
-            console.log(response);
+            // console.log(response);
             // Get our old comments
             var currentComments = document.body.querySelector('.post-comments-' + postid);
             // Now we need to make it html to query select it
@@ -31,6 +60,54 @@ window.newComment = function (postid) {
             newComments = htmlDocument.documentElement.querySelector('.post-comments-' + postid);
             // Replace the divs
             currentComments.replaceWith(newComments);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+window.deleteComment = function (postid, commentid) {
+    // Get the relevant body
+    body = document.body.querySelector('#body-' + postid).value;
+    // console.log(body);
+    // Params are (URL, body, options)
+    axios.delete(
+        '/comments/' + commentid,
+        {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content
+            }
+        })
+        .then(function (response) {
+            updateComments(postid);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+window.editComment = function (postid, commentid) {
+
+    // Get the relevant body
+    body = document.body.querySelector('#edit-body-' + commentid).value;
+    // console.log(body);
+    // Params are (URL, body, options)
+    axios.patch(
+        '/comments/' + commentid,
+        {
+            'body': body
+        },
+        {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content
+            }
+        })
+        .then(function (response) {
+            updateComments(postid);
         })
         .catch(function (error) {
             console.log(error);
