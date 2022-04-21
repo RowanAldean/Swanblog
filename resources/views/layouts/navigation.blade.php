@@ -9,22 +9,22 @@
         </a>
 
         <!-- Toggle button -->
-        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent"
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
         </button>
 
         <!-- Collapsible wrapper -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex nav-item">
-                    <x-nav-link class="nav-link" :href="route('feed')" :active="request()->routeIs('feed')">
+                <div class="flex justify-content-center space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link class="nav-item nav-link" :href="route('feed')" :active="request()->routeIs('feed')">
                         <i class="fa-solid fa-house active:text-indigo-700"></i>
                     </x-nav-link>
                     <!-- :href="route('posts.explore')" :active="request()->routeIs('posts.explore')" -->
-                    <x-nav-link class="nav-link">
+                    <x-nav-link class="nav-item nav-link">
                         <i class="fa-solid fa-compass"></i>
                     </x-nav-link>
                     <x-nav-link class="nav-link">
@@ -34,16 +34,16 @@
             </ul>
 
             <!-- Settings -->
-            <ul class="navbar-nav d-flex flex-row me-1">
+            <ul class="navbar-nav md:d-flex md:flex-row me-1">
                 <li
-                    class="flex align-items-center pr-4 nav-item text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                    class="justify-content-center flex align-items-center pr-4 nav-item text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                     <a className="pr-4 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
                         href="{{ route('post.create') }}"
                         active="{{ strpos(Route::currentRouteName(), 'post.create') == 0 ? true : false }}">
                         {{ __('Create Post') }}
                     </a>
                 </li>
-                <li class="nav-item me-3 me-lg-0 flex items-center">
+                <li class="sm:mt-1 md:mt-0 justify-content-center nav-item me-3 me-lg-0 flex items-center">
 
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
