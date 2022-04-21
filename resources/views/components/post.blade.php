@@ -66,7 +66,8 @@
     <div class="post-comments-{{ $post->id }} container">
         <div class="row justify-content-start align-items-center">
             <div class="col-auto">
-                <div class="text-muted fw-bold">Featured comment:
+                <div>
+                    <p class="fw-bold text-muted">Featured comment:</p>
                     @if ($post->comments()->count() > 0)
                         <span class="flex align-items-center">
                             {{-- Teaser comment --}}

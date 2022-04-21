@@ -53,7 +53,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        return $post->user_id == $user->id;
+        return ($post->user_id == $user->id) || ($user->admin);
     }
 
     /**
@@ -65,7 +65,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        return $post->user_id == $user->id;
+        return ($post->user_id == $user->id) || ($user->admin);
     }
 
     /**
@@ -77,7 +77,7 @@ class PostPolicy
      */
     public function restore(User $user, Post $post)
     {
-        return $post->user_id == $user->id;
+        return ($post->user_id == $user->id) || ($user->admin);
     }
 
     /**
@@ -89,6 +89,6 @@ class PostPolicy
      */
     public function forceDelete(User $user, Post $post)
     {
-        return $post->user_id == $user->id;
+        return ($post->user_id == $user->id) || ($user->admin);
     }
 }

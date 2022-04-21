@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\Post;
@@ -19,10 +22,11 @@ class UsersDataSeeder extends Seeder
     {
         // First let's make sure to seed my 'default' account.
         $u1 = new User;
-        $u1->name = "Rowan";
-        $u1->username = "rowan-is-testing";
-        $u1->email = "rowan-cant-test@example.com";
-        $u1->password = "helloworld";
+        $u1->name = "Rowan Aldean";
+        $u1->username = "rowan-is-admin";
+        $u1->email = "rowan@swansea.ac.uk";
+        $u1->password = Hash::make("rowan123");
+        $u1->admin = true;
         $u1->save();
 
         $pr1 = new Profile;
@@ -30,6 +34,10 @@ class UsersDataSeeder extends Seeder
         $pr1->bio = "Hi my name is Rowan and I developed this web app!";
         $pr1->website = "https://www.aldeansoftware.com";
         $pr1->save();
+
+        event(new Registered($u1));
+
+        Auth::login($u1);
 
         /* Create 10 users (and a profile for each)
           - each user has 5 posts and each post has 3 comments.

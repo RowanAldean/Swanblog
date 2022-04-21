@@ -117,4 +117,9 @@ class User extends Authenticatable
             })
             ->exists();
     }
+
+    public function isAdmin(): bool
+    {
+        return ($this->admin);
+    }
 }

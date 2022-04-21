@@ -1,12 +1,20 @@
 @props(['comment', 'user', 'changes'])
 
 <div {!! $attributes->merge(['class' => 'comment-card mb-2']) !!}>
-    <span>{{ $comment->body }}
+    <span>
+        <p>{{ $comment->body }}</p>
         <span class="fw-bold text-muted">-
             {{ $comment->created_at->diffForHumans() }}
-            <a style="padding-left: 0.4rem;" class="fw-normal text-indigo-700"
+            <a style="padding-left: 0.4rem;" @class([
+                'fw-normal',
+                'text-indigo-700' => !$user->first()->admin,
+                'text-red-500' => $user->first()->admin,
+            ])
                 href="/profile/{{ $user->first()->username }}">
                 {{ $user->first()->username }} </a>
+            @if ($user->first()->admin)
+                <span class="fw-normal text-red-500"><i> (admin)</i></span>
+            @endif
             @if ($comment->edited == 1)
                 <span class="fw-normal"><i> (edited)</i></span>
             @endif
