@@ -2,6 +2,11 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Str;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\File\File;
+use Intervention\Image\Facades\Image;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Post;
@@ -35,28 +40,33 @@ class Feed
         $jsonResponse = json_decode($response->getBody()->read(1024));
 
         $twitterID = $jsonResponse->{'data'}->{'id'};
-        $picURL = $jsonResponse->{'data'}->{'profile_image_url'};
-        $recentTweets = $this->client->get('/2/users/' . $twitterID . '/tweets?' . 'exclude=replies,retweets', ['headers' => $this->headers]);
+        $profilePicURL = $jsonResponse->{'data'}->{'profile_image_url'};
+
+        $recentTweets = $this->client->get('/2/users/' . $twitterID . '/tweets?' . 'exclude=replies,retweets&media.fields=url', ['headers' => $this->headers]);
 
         $tweetDumpJson = json_decode($recentTweets->getBody());
         $recentTweet = $tweetDumpJson->{'data'}[0]->{'text'};
 
         $user = User::firstOrCreate([
+            'is_bot' => true,
             'name' => $jsonResponse->{'data'}->{'name'},
             'username' => $username,
             'email' => 'faketweet@null.com',
-            'password' => Hash::make($username),
+            'password' => $username,
         ]);
+
+        $profilePicURL = str_replace('normal', '400x400', $profilePicURL);
 
         $profile = Profile::firstOrCreate([
             'user_id' => $user->id,
             'bio' =>  'This is a bot account that mirrors Twitter (here is the bio):' . $jsonResponse->{'data'}->{'description'},
             'website' => 'https://twitter.com/' . $username,
-            'image' => $picURL,
-
+            'image' => $profilePicURL,
         ]);
 
-        $user->posts()->create([
+        $profile->save();
+
+        $user->posts()->firstOrCreate([
             'caption' => $recentTweet,
         ]);
     }

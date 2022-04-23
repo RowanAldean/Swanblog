@@ -6,8 +6,14 @@
         <div class="row justify-content-start align-items-center rounded-full">
             <div class="col-11">
                 <button type="button" onclick="window.location='{{ route('profile.index', $post->user->username) }}'"
-                    class="row profile-pill justify-content-start align-items-center mb-2"
-                    href={{ route('profile.index', $post->user->username) }}>
+                    @class([
+                        'row',
+                        'profile-pill',
+                        'justify-content-start',
+                        'align-items-center',
+                        'mb-2',
+                        'twitter-bot' => $post->user->is_bot,
+                    ]) href={{ route('profile.index', $post->user->username) }}>
                     <div class="flex align-items-center">
                         <a class="d-inline" href="/profile/{{ $post->user->username }}">
                             <img src="{{ asset($post->user->profile->getProfileImage()) }}"
