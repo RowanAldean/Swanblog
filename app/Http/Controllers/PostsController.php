@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Services\Feed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -16,7 +17,7 @@ class PostsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Feed $feed)
     {
 
         // Array of users that the auth user follows
@@ -38,8 +39,10 @@ class PostsController extends Controller
         $posts = Post::orderBy('created_at', 'desc')->paginate(10);
         // dd($posts);
 
+        // Create Elon post
+        $elon = $feed->fetchRecentTweetAsPost('elonmusk');
         // Compact is a PHP function that creates an array from variables and their values.
-        return view('feed', compact('posts', 'sugg_users'));
+        return view('feed', compact('posts', 'sugg_users', 'elon'));
     }
 
     public function explore()
