@@ -16,6 +16,11 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <!-- Scripts -->
+    <script>
+        window.Laravel = {!! json_encode([
+    'user' => auth()->check() ? auth()->user()->id : null,
+]) !!};
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/likes.js') }}"></script>
@@ -38,6 +43,23 @@
                 </div>
             </div>
         </main>
+        <!-- Modal -->
+        <div id="notif-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New comment</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div id="notif-content" class="modal-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

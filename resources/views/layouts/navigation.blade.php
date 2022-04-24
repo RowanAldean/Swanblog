@@ -27,8 +27,8 @@
                     <x-nav-link class="nav-item nav-link">
                         <i class="fa-solid fa-compass"></i>
                     </x-nav-link>
-                    <x-nav-link class="nav-link">
-                        <i class="fa-solid fa-heart"></i>
+                    <x-nav-link class="nav-item nav-link" :href="route('likes')" :active="request()->routeIs('likes')">
+                        <i id="likes-notif" class="fa-solid fa-heart"></i>
                     </x-nav-link>
                 </div>
             </ul>

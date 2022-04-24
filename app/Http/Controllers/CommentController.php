@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\CommentReceived;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\User;
@@ -48,11 +49,13 @@ class CommentController extends Controller
     {
         $post = Post::findOrFail($request->post_id);
 
-        Comment::create([
+        $comment = Comment::create([
             'body' => $request->body,
             'user_id' => Auth::user()->id,
             'post_id' => $post->id
         ]);
+
+        $post->user->notify(new CommentReceived($comment));
 
         //Go to the post page
         if ($request->redirect) {

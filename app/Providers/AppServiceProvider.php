@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(Feed::class, function ($app) {
-            return new Feed('***REMOVED***');
+            return new Feed('AAAAAAAAAAAAAAAAAAAAAGMfbwEAAAAAev0dZHJBINjuqoKz4fPMtvIcmEs%3D68AoDm9GGjHlRSP8UJ0aFKE8zsw6xZqVTId4M8H6oKNLty1Lpb');
         });
     }
 

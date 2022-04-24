@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login')->name('home');
 
+Route::get('/likes', function () {
+    return view('likes.index');
+})->name('likes');
+
 Route::controller(ProfileController::class)->middleware(['auth'])->group(function () {
     Route::get('/profile/{username}', 'index')->name('profile.index');
     Route::patch('/profile/{username}', 'update')->name('profile.update');
